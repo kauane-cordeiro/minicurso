@@ -191,7 +191,7 @@ Após conectar-se à rede, o saldo será exibido automaticamente.
 
 # Importe uma nova conta e realize uma transação via MetaMask
 
-- Você irá utilizar as orientações de importação de carteira disponíveis no passo 3 com o private key fornecedor. Os passos 7 e 8 orientam como realizar e verificar a transação.
+- Você irá utilizar as orientações de importação de account disponíveis no passo 3 com o private key fornecedor. Os passos 7 e 8 orientam como realizar e verificar a transação.
 
 Privete Key: 
 
