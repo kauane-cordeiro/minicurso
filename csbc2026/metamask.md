@@ -111,7 +111,7 @@ Fixe a extensão no seu navegador para facilitar o acesso:
 ![Download MetaMask](images/fixar.png)
 ---
 
-# 2. Criando uma Nova Carteira
+# 2. Criando e importando Carteiras
 
 - Clique em **Criar uma Nova Carteira**
 - Defina uma senha
@@ -121,10 +121,10 @@ Ou importe uma carteira existente:
 
 ⚠️ Nunca compartilhe sua frase-semente.
 
-Para criar uma nova carteira:
+## Para criar uma nova carteira:
 ![Download MetaMask](images/criar-carteira.png)
 
-Para importar uma carteira existente:
+## Para importar uma carteira existente:
 ![Download MetaMask](images/importar-carteira.png)
 
 ---
@@ -140,7 +140,7 @@ Contas
 
 Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.
 
-![Download MetaMask](images/importar-account.png)
+![Download MetaMask](images/importar-account-existente.png)
 
 ---
 
@@ -164,7 +164,7 @@ Preencha os dados da rede:
 | Chain ID | 10001 |
 | Símbolo | ETH |
 
-![Download MetaMask](images/cadastrando-rede-besu.png)
+![Download MetaMask](images/conectar-carteira-a-rede.png)
 
 
 ---
@@ -189,10 +189,12 @@ Após conectar-se à rede, o saldo será exibido automaticamente.
 ---
 # DESAFIO
 
-# Importe uma nova conta (Passos 3 e 7)
+# Importe uma nova conta e realize uma transação via MetaMask
+
+- Você irá utilizar as orientações de importação de carteira disponíveis no passo 3 com o private key fornecedor. Os passos 7 e 8 orientam como realizar e verificar a transação.
 
 Privete Key: 
-Realize uma transação
+
 
 # 7. Realizando uma Transação
 
