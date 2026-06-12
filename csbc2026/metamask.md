@@ -1,17 +1,5 @@
 # MetaMask - Carteira Digital para Interação com a Rede Besu
 
-## Objetivo
-
-Nesta etapa você irá:
-- Instalar a extensão MetaMask no Google Chrome;
-- Criar ou importar uma carteira digital;
-- Importar uma conta de teste;
-- Conectar-se à rede Hyperledger Besu;
-- Realizar transações;
-- Interagir com Smart Contracts.
-
----
-
 # Visão Geral
 
 A MetaMask é uma carteira digital de auto-custódia amplamente utilizada no ecossistema Web3. Ela permite armazenar chaves privadas, assinar transações e interagir com aplicações descentralizadas (DApps) em redes compatíveis com Ethereum Virtual Machine (EVM), incluindo Hyperledger Besu.
@@ -94,6 +82,17 @@ Rede Blockchain
 Smart Contracts
 ```
 ---
+## Objetivo
+
+Nesta etapa você irá:
+- Instalar a extensão MetaMask no Google Chrome;
+- Criar ou importar uma carteira digital;
+- Importar uma conta de teste;
+- Conectar-se à rede Hyperledger Besu;
+- Realizar transações;
+- Interagir com Smart Contracts.
+
+---
 
 # 1. Instalação da Extensão
 
@@ -108,6 +107,7 @@ Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chr
 ![Download MetaMask](images/adicionar-extensao2.png)
 
 Fixe a extensão no seu navegador para facilitar o acesso:
+
 ![Download MetaMask](images/fixar.png)
 ---
 
