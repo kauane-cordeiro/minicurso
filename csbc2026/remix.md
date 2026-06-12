@@ -32,8 +32,6 @@ Acesse:
 
 https://remix.ethereum.org
 
-## Imagem
-
 ![Acesso ao Remix](images/01-remix-home.png)
 
 ---

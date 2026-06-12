@@ -102,13 +102,13 @@ https://metamask.io/download
 
 Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chrome**.
 
-![Download MetaMask](images/metamask-download.png)
-![Download MetaMask](images/adicionar-extensao.png)
-![Download MetaMask](images/adicionar-extensao2.png)
+![Download MetaMask](images/metamask/01.1-metamask-download.png)
+![Download MetaMask](images/metamask/01.2-add-ext.png)
+![Download MetaMask](images/metamask/01.3-add-ext.png)
 
 Fixe a extensão no seu navegador para facilitar o acesso:
 
-![Download MetaMask](images/fixar.png)
+![Download MetaMask](images/metamask/01.4-fix-ext.png)
 ---
 
 # 2. Criando e importando Carteiras
@@ -122,10 +122,10 @@ Ou importe uma carteira existente:
 ⚠️ Nunca compartilhe sua frase-semente.
 
 ## Para criar uma nova carteira:
-![Download MetaMask](images/criar-carteira.png)
+![Download MetaMask](images/metamask/02.1-create-wallet.png)
 
 ## Para importar uma carteira existente:
-![Download MetaMask](images/importar-carteira.png)
+![Download MetaMask](images/metamask/02.2-import-wallet.png)
 
 ---
 
@@ -140,7 +140,7 @@ Contas
 
 Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.
 
-![Download MetaMask](images/importar-account-existente.png)
+![Download MetaMask](images/metamask/03-import-account.png)
 
 ---
 
@@ -164,7 +164,7 @@ Preencha os dados da rede:
 | Chain ID | 10001 |
 | Símbolo | ETH |
 
-![Download MetaMask](images/conectar-carteira-a-rede.png)
+![Download MetaMask](images/metamask/04-connect-network.png)
 
 
 ---
@@ -176,7 +176,7 @@ MetaMask
 → Selecionar Rede
 → iliada-besu
 ```
-![Download MetaMask](images/conectar-carteira-e-rede.png)
+![Download MetaMask](images/metamask/05-connect-account-and-network.png)
 
 ---
 
@@ -184,7 +184,7 @@ MetaMask
 
 Após conectar-se à rede, o saldo será exibido automaticamente.
 
-![Download MetaMask](images/saldo.png)
+![Download MetaMask](images/metamask/06-wallet-balance.png)
 
 ---
 # DESAFIO
@@ -203,7 +203,7 @@ Privete Key:
 - Informe a quantidade de ETH
 - Confirme a transação
 
-![Download MetaMask](images/transacao.png)
+![Download MetaMask](images/metamask/07-transaction.png)
 
 ---
 
@@ -216,7 +216,7 @@ A MetaMask permite visualizar:
 - Operações pendentes
 - Operações confirmadas
 
-![Download MetaMask](images/historico-de-transacoes.png)
+![Download MetaMask](images/metamask/08-history-transactions.png)
 
 ---
 <!-- 
