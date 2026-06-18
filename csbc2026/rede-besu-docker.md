@@ -597,12 +597,9 @@ cd $BASEDIR
 ./21-iniciar-nodes.sh
 ```
 
-
-<!-- > Espaço para imagem: Rede em execução -->
-
 ---
 
-# 9. Validação da Blockchain
+# 9. Validação e Interação com a Rede
 
 ## Chain ID
 
