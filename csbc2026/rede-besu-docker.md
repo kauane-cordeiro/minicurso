@@ -127,7 +127,7 @@ Para acessar o repositório de instalação dos binários do Besu:
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-ls ~/iliada/rede-besu/bin
+cd ~/iliada/rede-besu/bin
 ```
 Para verificar versão instalada e os parâmetros disponíveis (besu [OPTIONS])
 
@@ -302,8 +302,8 @@ Ou verifique todas as configurações com o script:
 ./14-verificar-config-nodes.sh
 ```
 
-Após validar que as configurações dos nodes foi corretamente criada, > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO o script abaixo, ele será responsável por atualizar o arquivo static-nodes.json. O arquivos static-nodes.json possui as configurações necessárias para que o nodes validadores inciais da rede enxerguem e conectem um ao outro sem a necessídade de comandos adicionais ou votação.
+Após validar que a configuração dos nós foi criada corretamente, execute o script abaixo. Ele será responsável por atualizar o arquivo `static-nodes.json`, que contém as informações necessárias para que os nós validadores iniciais da rede se descubram e estabeleçam conexão automaticamente. Dessa forma, os validadores passarão a se comunicar entre si sem a necessidade de configurações adicionais, comandos manuais ou processos de votação.
+
 
 > [!IMPORTANT]
 > 🚀 EXECUTE O COMANDO ABAIXO
@@ -317,7 +317,8 @@ Após validar que as configurações dos nodes foi corretamente criada, > [!IMPO
 O genesis.json tem um campo chamado “extraData” contendo o conjunto de validadores iniciais da rede codificado em uma string, gerada a partir de um arquivo json com os nodeid’s de cada node.
 
 ## 5.1 initialValidators.json
-Arquivo json com os nodeid’s de cada node
+
+O arquivo initialValidators.json contém os node.id de todos os validadores iniciais da rede, utilizados pelo consenso QBFT para definir os nós autorizados a participar da validação de blocos desde a inicialização da blockchain.
 
 Acesse o diretório:
 > [!IMPORTANT]
@@ -355,12 +356,10 @@ cat extraData.json
 ```
 
 ## 5.3 genesis.json
-
+O arquivo genesis.json é o arquivo responsável por definir a configuração inicial da blockchain. Ele contém parâmetros fundamentais da rede, como o mecanismo de consenso (QBFT), os validadores iniciais, o identificador da rede (chainId), regras de protocolo e o estado inicial do ledger. Todos os nós da rede devem utilizar exatamente o mesmo arquivo genesis.json, pois qualquer divergência resultará na criação de uma blockchain diferente e incompatível com os demais participantes.
 ```bash
 nano $CONFIGDIR/besu/genesis.json
-cat $CONFIGDIR/besu/genesis.json
 ```
-
 Modelo genesis.json utilizado neste roteiro:
 
 ```bash
@@ -427,6 +426,11 @@ Para conferir o arquivo genesis.json
 
 > [!IMPORTANT]
 > 🚀 EXECUTE O COMANDO ABAIXO
+```bash
+cat $CONFIGDIR/besu/genesis.json
+```
+
+Ou o script:
 
 ```bash
 cd $BASEDIR
@@ -434,10 +438,12 @@ cd $BASEDIR
 ```
 Mais informações em:​
 
-https://besu.hyperledger.org/public-networks/concepts/genesis-file
+##### [Arquivo Genesis (Hyperledger Besu)](https://besu.hyperledger.org/public-networks/concepts/genesis-file)
 ---
 
 # 6. Configuração do arquivo de Log XML
+
+O arquivo log.xml define como o Hyperledger Besu registra eventos e mensagens de execução. Neste laboratório, ele configura a exibição de logs no console e o armazenamento em arquivos separados por nível (INFO, ERROR e DEBUG). Além disso, implementa rotação automática dos arquivos quando atingem 10 MB e remove logs com mais de 30 dias, facilitando o monitoramento e evitando o crescimento excessivo do espaço utilizado em disco.
 
 ```bash
 nano $CONFIGDIR/nodes/org1-node1/log.xml
@@ -523,6 +529,7 @@ Arquivo de configuração de Log utilizado neste laboratório:
 ---
 
 # 7. Criação de Volumes
+Os volumes são utilizados para armazenar de forma persistente os dados de cada nó da rede blockchain. Isso garante que informações importantes, como blocos, estado da blockchain, chaves e configurações locais, sejam preservadas mesmo que os contêineres sejam reiniciados, removidos ou atualizados.
 
 
 ```bash
@@ -550,13 +557,10 @@ ll $BASEDIR/volumes
 # 8. Inicialização dos Nós
 
 Nesta etapa, iremos utilizar os arquivos docker-compose.yml de cada node para iniciar a rede.
-> [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
 
 Iremos primeiro executar dois nós da rede a observar o log (Observe que um peer é adicionado ao log na segunda execução):
 
 Executar para cada nó:
-
 > [!IMPORTANT]
 > 🚀 EXECUTE O COMANDO ABAIXO:
 ```bash
@@ -577,7 +581,7 @@ docker-compose logs -f
 Para sair da visualização do log:
 [Ctrl+C]
 
-Agora iremos remover o nodes criadas e vamos inciar a rede COMPLETA com o 6 nodes, utilizando o script abaixo:
+Agora iremos remover o nodes criados e inciar a rede COMPLETA com o 6 nodes, utilizando o script abaixo:
 
 > [!IMPORTANT]
 > 🚀 EXECUTE O COMANDO ABAIXO
