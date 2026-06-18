@@ -1,0 +1,375 @@
+# 1.  Instanciar VM
+
+O exemplo de Vagrantfile para instanciação de máquina virtual abaixo é o modelo já validado e utilizado em edições anteriores do minicurso.
+
+Nomenclatura padrão: iliad-ambiente-rnp-minicurso-SiglaEstadoNumeroVMHost
+
+Observação: Cada Host poderá alocar até 5 Máquinas Virtuais por ambiente seguindo o padrão de range de portas:
+
+01 ao 20
+21 ao 40
+41 ao 60
+61 ao 80
+81 ao 99
+
+Acesse a planilha que descreve a alocação atual: (https://nasnuvensrnp.sharepoint.com/:x:/r/sites/ILIADA/_layouts/15/Doc.aspx?sourcedoc=%7BDA2E4EC2-0DCC-43E7-B935-391C8E2505CF%7D&file=Minicurso%20HandsOn%20ILIADA-%20WTestbeds%202025.xlsx&action=default&mobileredirect=true)
+
+
+Exemplo: Primeira VM (1) do Host Alocado no PoP do estado do Rio de Janeiro (RJ)
+
+#### 1.1 Crie o arquivo Vagrantfile
+```bash
+nano Vagrantfile
+```
+```bash
+Vagrant.configure("2") do |config|
+  # Define a VM com o nome "iliada-204-rnp-minicurso-rj1"
+  config.vm.define "iliada-204-rnp-minicurso-rj1" do |vm1|
+    # Especifica a imagem base (Ubuntu 22.04 genérica)
+    vm1.vm.box = "generic/ubuntu2204"
+    # Define o hostname da VM
+    vm1.vm.hostname = "iliada-204-rnp-minicurso-rj1"
+
+    # Configurações específicas para o provedor libvirt/KVM
+    vm1.vm.provider "libvirt" do |libvirt|
+      libvirt.driver = "kvm"                            # Usa o driver KVM
+      libvirt.uri = "qemu:///system"                    # URI do hypervisor
+      libvirt.cpus  = 8                                 # Número de CPUs
+      libvirt.memory = 16400                            # Memória RAM (em MB)
+      libvirt.machine_virtual_size = 128                # Tamanho do disco (em GB)
+      libvirt.management_network_name = "iliada-204-nat"         # Nome da rede NAT
+      libvirt.management_network_mode = "nat"                    # Tipo NAT
+      libvirt.management_network_address = "10.100.204.0/24"     # Sub-rede
+    end
+
+    # Define uma interface de rede privada com IP fixo
+    vm1.vm.network :private_network,
+      :libvirt__network_name => "204-iliada",
+      :libvirt__netmask => "255.255.0.0",
+      :ip => "10.204.21.1"
+
+    # Mapeamento de portas entre host e VMs 1
+    vm1.vm.network "forwarded_port", guest: 22, host: 20401, protocol: "tcp"      # SSH
+    vm1.vm.network "forwarded_port", guest: 2000, host: 20402, protocol: "tcp"    # Grafana
+    vm1.vm.network "forwarded_port", guest: 9090, host: 20403, protocol: "tcp"    # Prometheus
+    vm1.vm.network "forwarded_port", guest: 5901, host: 20405, protocol: "tcp"    # VNC
+    vm1.vm.network "forwarded_port", guest: 6080, host: 20408, protocol: "tcp"    # noVNC
+    vm1.vm.network "forwarded_port", guest: 3000, host: 20410, protocol: "tcp"    # Portal
+    vm1.vm.network "forwarded_port", guest: 3001, host: 20411, protocol: "tcp"    # Portal Fabric
+    vm1.vm.network "forwarded_port", guest: 3002, host: 20412, protocol: "tcp"    # Portal Besu
+    vm1.vm.network "forwarded_port", guest: 8545, host: 20414, protocol: "tcp"    # Hyperledger Besu JSON-RPC
+    vm1.vm.network "forwarded_port", guest: 4545, host: 20415, protocol: "tcp"    # Hyperledger Besu JSON-RPC aluno
+    vm1.vm.network "forwarded_port", guest: 7151, host: 20416, protocol: "tcp"    # Hyperledger Fabric Peer
+    vm1.vm.network "forwarded_port", guest: 7051, host: 20417, protocol: "tcp"    # Hyperledger Fabric Peer aluno
+    vm1.vm.network "forwarded_port", guest: 80, host: 20418, protocol: "tcp"      # HTTP cc-tools
+    vm1.vm.network "forwarded_port", guest: 7200, host: 20419, protocol: "tcp"    # HTTP cc-tools aluno
+
+    # Script de provisionamento que será executado na criação da VM
+    vm1.vm.provision "shell", inline: <<-SHELL
+      # Cria o usuário "iliada" com home e bash
+      useradd -m -d "/home/iliada" -s /bin/bash "iliada"
+      # Adiciona o usuário ao grupo docker e sudo
+      sudo usermod -aG docker iliada
+      usermod -aG sudo iliada
+      # Permite sudo sem senha para "iliada"
+      sed -i '51i\\iliada ALL=(ALL:ALL) NOPASSWD:ALL' /etc/sudoers
+
+      # Define a senha do usuário "iliada"
+      PASS="sorj3508#"
+      echo -e "$PASS\\n$PASS" | sudo passwd "iliada"
+
+      # Atualiza pacotes e instala ferramentas básicas
+      su iliada && cd /home/iliada/
+      sudo apt update
+      sudo apt install -y net-tools git make
+
+      # Configura o repositório do Docker
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSl https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/u                                                                                buntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      sudo apt update
+      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose
+
+      # Garante que o usuário está no grupo docker
+      usermod -aG docker iliada
+
+      # Configura o fuso horário
+      timedatectl set-timezone America/Sao_Paulo
+
+      # Instala o NVM e Node.js v20 para o usuário "iliada"
+      su -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash" iliada
+      su -c "NVM_DIR=/home/iliada/" iliada
+      sudo -u iliada bash -c 'source /home/iliada/.nvm/nvm.sh && nvm install 20'
+
+      # Instala kubectl
+      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+      echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+      sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      # Instala utilitário jq e kind (Kubernetes-in-Docker)
+      sudo apt install -y jq
+      [ $(uname -m) = x86_64 ] && curl -Lo /home/iliada/kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
+      sudo chmod +x /home/iliada/kind
+      sudo mv /home/iliada/kind /usr/local/bin/kind
+
+      # Instala XFCE (ambiente gráfico) + tightvnc + ferramentas úteis
+      apt install -y cloud-guest-utils xfce4 xfce4-goodies build-essential net-tools python3-pip curl websockify novnc
+      apt install -y tightvncserver
+
+      # Instala Firefox e ferramentas de área de transferência
+      sudo apt install -y firefox autocutsel
+
+      # Expande automaticamente a partição/disco da VM
+      growpart /dev/vda 3
+      pvresize /dev/vda3
+      lvextend -r -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+    SHELL
+  end
+end
+```
+
+#### 1.2 Crie a VM
+```bash
+vagrant up
+```
+
+
+# 2. Instalar VNC e Google Browser:
+
+#### 2.1 Acesse a VM
+```bash
+vagrant ssh
+```
+#### 2.2 Acesse o usuário iliada
+
+Usuario: iliada
+Pass: sorj3508#
+```bash
+su - iliada
+```
+#### 2.3 Crie e execute o script setup-vnc.sh
+
+```bash
+nano setup-vnc.sh
+```
+Cole o conteúdo abaixo:
+
+```bash
+#!/bin/bash
+
+# ==========================================================
+# Configuração automática do TigerVNC + XFCE + Google Chrome
+# Usuário: iliada
+# Senha Linux: iliada2026
+# Senha VNC: iliada2026
+# ==========================================================
+
+USUARIO="iliada"
+SENHA="iliada2026"
+DIR_VNC="/home/$USUARIO/.vnc"
+
+if [ "$EUID" -ne 0 ]; then
+  echo "Erro: Este script precisa ser executado como root."
+  echo "Use: sudo ./setup_vnc.sh"
+  exit 1
+fi
+
+echo ">>> Alterando senha do usuário $USUARIO..."
+echo "$USUARIO:$SENHA" | chpasswd
+
+echo ">>> Instalando pacotes necessários..."
+apt update
+
+apt install -y \
+    tigervnc-standalone-server \
+    tigervnc-common \
+    xfce4 \
+    xfce4-goodies \
+    autocutsel \
+    dbus-x11 \
+    wget \
+    curl \
+    ca-certificates \
+    fonts-liberation \
+    libappindicator3-1 \
+    xdg-utils
+
+echo ">>> Instalando Google Chrome..."
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    -O /tmp/google-chrome-stable_current_amd64.deb
+
+apt install -y /tmp/google-chrome-stable_current_amd64.deb
+
+rm -f /tmp/google-chrome-stable_current_amd64.deb
+
+echo ">>> Versão do Google Chrome instalada:"
+google-chrome --version || true
+
+echo ">>> Criando diretório VNC..."
+mkdir -p "$DIR_VNC"
+
+echo ">>> Configurando senha do VNC..."
+su - "$USUARIO" -c "
+mkdir -p ~/.vnc
+echo '$SENHA' | vncpasswd -f > ~/.vnc/passwd
+chmod 600 ~/.vnc/passwd
+"
+
+echo ">>> Criando arquivo xstartup..."
+cat << 'EOF' > "$DIR_VNC/xstartup"
+#!/bin/sh
+
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+sleep 2
+
+/usr/bin/autocutsel -s CLIPBOARD -fork
+/usr/bin/autocutsel -s PRIMARY -fork
+
+xset s off
+xset s noblank
+xset -dpms
+
+(
+    sleep 10
+
+    xfconf-query \
+        -c xfce4-power-manager \
+        -p /xfce4-power-manager/dpms-enabled \
+        -n -t bool -s false || true
+
+    xfconf-query \
+        -c xfce4-power-manager \
+        -p /xfce4-power-manager/blank-on-ac \
+        -n -t int -s 0 || true
+
+    xfconf-query \
+        -c xfce4-power-manager \
+        -p /xfce4-power-manager/inactivity-on-ac \
+        -n -t int -s 0 || true
+
+    xfconf-query \
+        -c xfce4-power-manager \
+        -p /xfce4-power-manager/lock-screen-suspend-hibernate \
+        -n -t bool -s false || true
+
+    xfconf-query \
+        -c xfce4-session \
+        -p /startup/screensaver/enabled \
+        -n -t bool -s false || true
+
+) &
+
+exec /usr/bin/startxfce4
+EOF
+
+echo ">>> Ajustando permissões..."
+chmod +x "$DIR_VNC/xstartup"
+chown -R "$USUARIO:$USUARIO" "$DIR_VNC"
+
+echo ">>> Criando serviço Systemd..."
+cat << 'EOF' > /etc/systemd/system/vncserver@.service
+[Unit]
+Description=Servidor VNC TigerVNC Display %i
+After=network.target
+
+[Service]
+Type=forking
+User=iliada
+Group=iliada
+WorkingDirectory=/home/iliada
+
+# PIDFile=/home/iliada/.vnc/%H:%i.pid
+
+ExecStartPre=-/usr/bin/vncserver -kill :%i > /dev/null 2>&1
+ExecStart=/usr/bin/vncserver :%i \
+    -geometry 1920x1080 \
+    -depth 24 \
+    -localhost no
+
+ExecStop=/usr/bin/vncserver -kill :%i
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo ">>> Ajustando permissões do serviço..."
+chmod 644 /etc/systemd/system/vncserver@.service
+
+echo ">>> Recarregando Systemd..."
+systemctl daemon-reload
+
+echo ">>> Habilitando serviço..."
+systemctl enable vncserver@1.service
+
+echo ">>> Reiniciando serviço..."
+systemctl restart vncserver@1.service
+
+echo
+echo "=============================================="
+echo "Configuração concluída com sucesso!"
+echo "=============================================="
+echo "Usuário Linux : $USUARIO"
+echo "Senha Linux   : $SENHA"
+echo "Senha VNC     : $SENHA"
+echo
+echo "Google Chrome:"
+google-chrome --version || true
+echo
+echo "Acesso VNC:"
+echo "IP_DA_VM:5901"
+echo
+echo "Verificar status:"
+echo "systemctl status vncserver@1.service"
+echo
+echo "Verificar logs:"
+echo "journalctl -u vncserver@1.service -f"
+echo "=============================================="
+```
+
+
+Execute:
+```bash
+chmod +x setup_vnc.sh
+sudo ./setup_vnc.sh
+
+sudo systemctl daemon-reload
+sudo systemctl restart vncserver@1.service
+sudo systemctl status vncserver@1.service
+```
+
+# 3. Clonar Repositórios:
+
+### 3.1 Crie os diretório iliada 
+```bash
+mkdir iliada
+cd iliada
+```
+
+### 3.2 Clone os repositórios da rede Besu para o minicurso:
+```bash
+git clone https://user:access_token@git.rnp.br/iliada-blockchain/m2/minicurso-handson-besu.git rede-besu
+git clone https://user:access_token@git.rnp.br/iliada-blockchain/m2/minicurso-handson-besu-aluno.git rede-besu-aluno
+```
+
+### 3.3 Clone os repositórios da rede Fabric para o minicurso:
+```bash
+# git fabric
+# gi fabric-aluno
+```
+
+# 4. instalar o Java:
+```bash
+apt-cache search openjdk | grep openjdk-17
+sudo apt install -y openjdk-17-jre
+sudo apt install -y openjdk-17-jdk
+java --version
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+echo $JAVA_HOME
+```
