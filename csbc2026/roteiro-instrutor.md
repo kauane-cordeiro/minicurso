@@ -554,3 +554,27 @@ MetaMask
 ![Connect network and Metamask wallet](images/metamask/05-connect-account-and-network.png)
 
 ---
+
+# 10. Adicionar a MetaMask aos Favoritos
+
+Para facilitar o acesso durante os laboratórios, recomenda-se fixar a extensão da MetaMask na barra de ferramentas do navegador e manter a barra de favoritos visível.
+
+#### 10.1 Fixar a MetaMask e Remix na Barra de Ferramentas
+
+Clique no ícone de extensões do navegador e fixe a MetaMask para que ela fique sempre acessível na barra superior.
+
+![Add Favoritos](images/interno/10.1-add-favoritos.png)
+
+#### 10.2 Habilitar a Barra de Favoritos
+
+Caso a barra de favoritos esteja oculta, habilite sua exibição para facilitar o acesso aos links e materiais utilizados durante o minicurso.
+
+![Habilitar Favoritos](images/interno/10.2-habilitar-barra-favoritos.png)
+
+### 10.3 URL Remix IDE:
+
+Acesse e adicione aos favoritos:
+
+```text
+https://remix.ethereum.org/
+```
