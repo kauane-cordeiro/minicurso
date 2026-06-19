@@ -2,95 +2,40 @@
 
 # Visão Geral
 
-A MetaMask é uma carteira digital de auto-custódia amplamente utilizada no ecossistema Web3. Ela permite armazenar chaves privadas, assinar transações e interagir com aplicações descentralizadas (DApps) em redes compatíveis com Ethereum Virtual Machine (EVM), incluindo Hyperledger Besu.
+A MetaMask é uma carteira digital compatível com redes baseadas em Ethereum Virtual Machine (EVM), como Ethereum, Hyperledger Besu, Polygon e BNB Smart Chain. Neste laboratório ela será utilizada para conectar-se à rede Besu, consultar saldos, realizar transações e interagir com Smart Contracts.
 
 ### Segurança e Recuperação
 
-A criação da carteira é acompanhada da geração de uma frase-semente (Seed Phrase) composta por 12 palavras, utilizada para recuperação da conta em caso de perda do dispositivo. O acesso local à carteira é protegido por senha.
+A criação da carteira gera uma frase-semente (*Seed Phrase*) composta por 12 palavras, utilizada para recuperação da conta em caso de perda do dispositivo. O acesso local à carteira é protegido por senha.
 
-Além disso, a MetaMask oferece integração com hardware wallets, como Ledger e Trezor, proporcionando uma camada adicional de segurança.
+⚠️ Nunca compartilhe sua frase-semente ou suas chaves privadas.
 
-### Auto-Custódia
-
-A MetaMask opera no modelo de auto-custódia, no qual o próprio usuário mantém o controle de suas chaves privadas e ativos digitais, sem a necessidade de intermediários.
-
-### Compatibilidade com Redes Blockchain
-
-A carteira é compatível com diversas redes EVM, incluindo:
-
-* Ethereum
-
-* Hyperledger Besu
-
-* Polygon
-
-* Avalanche
-
-* BNB Smart Chain
-
-* Optimism
-
-Novas redes podem ser adicionadas manualmente por meio de parâmetros como RPC URL e Chain ID.
-
-### Gerenciamento de Contas
-
-A MetaMask permite a criação de múltiplas contas e a importação de identidades blockchain por meio de:
-
-* Chave privada;
-
-* Arquivo JSON (Keystore).
-
-### Transações e Ativos Digitais
-
-A plataforma possibilita o envio e recebimento de:
-
-* ETH;
-
-* Tokens ERC-20;
-
-* NFTs ERC-721;
-
-* Tokens ERC-1155.
-
-Também disponibiliza histórico detalhado de transações e acompanhamento do status das operações.
-
-### Integração com Aplicações Web3
-
-
-A MetaMask conecta-se diretamente a aplicações descentralizadas (DApps), permitindo autenticação, assinatura digital e execução de transações em redes blockchain.
-
-
-### Disponibilidade
-
-A carteira está disponível como:
-
-* Extensão para Chrome, Firefox, Edge e Brave;
-
-* Aplicativo móvel para Android e iOS.
-
-## Fluxo de Utilização
+### Fluxo de Utilização
 
 ```text
 Usuário
  ↓
 MetaMask
  ↓
-RPC Besu
+RPC JSON-RPC
  ↓
-Rede Blockchain
+Rede Hyperledger Besu
  ↓
 Smart Contracts
 ```
+
 ---
+
 ## Objetivo
 
 Nesta etapa você irá:
-- Instalar a extensão MetaMask no Google Chrome;
-- Criar ou importar uma carteira digital;
-- Importar uma conta de teste;
-- Conectar-se à rede Hyperledger Besu;
-- Realizar transações;
-- Interagir com Smart Contracts.
+
+* Instalar a extensão MetaMask no Google Chrome;
+* Criar ou importar uma carteira digital;
+* Importar uma conta de teste;
+* Conectar-se à rede Hyperledger Besu;
+* Realizar transações;
+* Interagir com Smart Contracts.
 
 ---
 
@@ -98,48 +43,63 @@ Nesta etapa você irá:
 
 Acesse:
 
+```text
 https://metamask.io/download
+```
 
-
-Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chrome ou Add Extension**.
+Selecione **Chrome** (ou o navegador de sua preferência) e clique em **Add Extension**.
 
 ![Download MetaMask](images/metamask/01.1-metamask-download.png)
+
 ![Add Extension MetaMask](images/metamask/01.2-add-ext.png)
+
 ![Add Extension MetaMask](images/metamask/01.3-add-ext.png)
 
-Fixe a extensão no seu navegador para facilitar o acesso:
+Fixe a extensão no navegador para facilitar o acesso:
 
 ![Fix Extension MetaMask](images/metamask/01.4-fix-ext.png)
+
 ---
 
-# 2. Criando e importando Carteiras
+# 2. Criando ou Importando uma Carteira
 
-- Clique em **Criar uma Nova Carteira**
-- Defina uma senha
-- Salve a frase-semente (Seed Phrase)
+Ao abrir a MetaMask pela primeira vez, você poderá:
 
-Ou importe uma carteira existente:
+* Criar uma nova carteira;
+* Importar uma carteira existente.
 
-⚠️ Nunca compartilhe sua frase-semente.
+## Criar uma nova carteira
 
-## Para criar uma nova carteira:
+* Clique em **Criar uma Nova Carteira**;
+* Defina uma senha;
+* Salve sua frase-semente em local seguro.
+
 ![Create Wallet MetaMask](images/metamask/02.1-create-wallet.png)
 
-## Para importar uma carteira existente:
+## Importar uma carteira existente
+
+Caso já possua uma carteira MetaMask, utilize a opção **Importar Carteira** e informe sua frase-semente.
+
 ![Import Wallet MetaMask](images/metamask/02.2-import-wallet.png)
 
 ---
 
 # 3. Importando uma Conta de Teste
 
-Menu:
+No menu da MetaMask, acesse:
 
 ```text
 Contas
-→ Importar Conta : 0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
+→ Importar Conta
 ```
 
-Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.
+Selecione a opção **Chave Privada** e informe a chave privada da conta que deseja importar.
+
+### Exemplo
+
+```text
+0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
+```
 
 ![Import Account MetaMask](images/metamask/03-import-account.png)
 
@@ -147,62 +107,116 @@ Selecione **Chave Privada** e informe a chave criptografica da conta que deseja 
 
 # 4. Adicionando a Rede Besu
 
-Preencha os dados da rede:
+Preencha os dados da rede conforme os parâmetros disponibilizados pelo instrutor.
 
-| Campo | Valor |
-|---------|---------|
-| Nome da Rede | rede-besu |
-| RPC URL | http://IP-DO-NODE:8545 |
-| Chain ID | 10001 |
-| Símbolo | ETH |
+| Campo        | Valor                  |
+| ------------ | ---------------------- |
+| Nome da Rede | rede-besu              |
+| RPC URL      | http://IP-DO-NODE:8545 |
+| Chain ID     | 10001                  |
+| Símbolo      | ETH                    |
 
 ### Exemplo do Minicurso
 
-| Campo | Valor |
-|---------|---------|
+| Campo        | Valor                        |
+| ------------ | ---------------------------- |
 | Nome da Rede | iliada-204-rnp-minicurso-rn1 |
-| RPC URL | http://200.137.0.26:20414 |
-| Chain ID | 10001 |
-| Símbolo | ETH |
+| RPC URL      | http://200.137.0.26:20414    |
+| Chain ID     | 10001                        |
+| Símbolo      | ETH                          |
 
 ![Connect network Metamask](images/metamask/04-connect-network.png)
 
+---
+
+## Troubleshooting de Conectividade RPC
+
+A MetaMask não conseguiu conectar à rede Besu?
+
+Valide a disponibilidade do serviço RPC executando os testes abaixo.
+
+### 1. Dentro da máquina virtual
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://localhost:8545
+```
+
+### 2. No host físico que executa o Vagrant
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://localhost:20414
+```
+
+### 3. A partir de uma máquina externa
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://IP-PUBLICO:20414
+```
+
+Caso o terceiro teste não retorne uma resposta do Hyperledger Besu, verifique as configurações de firewall, redirecionamento de portas e conectividade de rede.
 
 ---
 
 # 5. Conectando-se à Rede
 
+Após adicionar a rede, selecione-a na MetaMask:
+
 ```text
 MetaMask
 → Selecionar Rede
-→ iliada-besu
+→ iliada-204-rnp-minicurso-rn1
 ```
+
 ![Connect network and Metamask wallet](images/metamask/05-connect-account-and-network.png)
 
 ---
 
 # 6. Consultando Saldo
 
-Após conectar-se à rede, o saldo será exibido automaticamente.
+Após conectar-se à rede, o saldo da conta será exibido automaticamente na carteira.
 
 ![Wallet Balance MetaMask](images/metamask/06-wallet-balance.png)
 
 ---
-# DESAFIO
 
-# Importe uma nova conta e realize uma transação via MetaMask
+# Desafio
 
-- Você irá utilizar as orientações de importação de account disponíveis no passo 3 com o private key fornecedor. Os passos 7 e 8 orientam como realizar e verificar a transação.
+## Importe uma nova conta e realize uma transação
 
-Privete Key: 
+Utilize o procedimento apresentado no passo 3 para importar uma nova conta por chave privada.
 
+### Private Key
+
+```text
+0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+```
+
+Após importar a conta:
+
+1. Conecte-se à rede Besu;
+2. Consulte o saldo disponível;
+3. Realize uma transferência para outra conta do laboratório;
+4. Verifique o resultado da operação no histórico da MetaMask.
+
+---
 
 # 7. Realizando uma Transação
 
-- Clique em **Enviar**
-- Informe o endereço de destino
-- Informe a quantidade de ETH
-- Confirme a transação
+* Clique em **Enviar**;
+* Informe o endereço de destino;
+* Defina a quantidade de ETH;
+* Confirme a transação.
+
+⚠️ Os ETH utilizados neste laboratório possuem finalidade exclusivamente educacional e não possuem valor financeiro.
 
 ![Transactions MetaMask](images/metamask/07-transaction.png)
 
@@ -212,39 +226,22 @@ Privete Key:
 
 A MetaMask permite visualizar:
 
-- Transações enviadas
-- Transações recebidas
-- Operações pendentes
-- Operações confirmadas
+* Transações enviadas;
+* Transações recebidas;
+* Operações pendentes;
+* Operações confirmadas.
 
 ![Transaction History MetaMask](images/metamask/08-history-transactions.png)
-
----
-<!-- 
-# 9. Interagindo com Smart Contracts
-
-Fluxo:
-
-```text
-Remix
- ↓
-MetaMask
- ↓
-Rede Besu
-```
-
-A MetaMask será utilizada para assinar transações e executar funções do contrato.
-
-> INSERIR IMAGEM: Interação com Smart Contract
 
 ---
 
 # Resultado Esperado
 
-Ao final desta atividade, o participante será capaz de:
+Ao final desta atividade você deverá ser capaz de:
 
-- Criar e gerenciar uma carteira MetaMask;
-- Conectar-se à rede Hyperledger Besu;
-- Realizar transações;
-- Consultar saldos;
-- Interagir com Smart Contracts. -->
+* Importar uma carteira na MetaMask;
+* Importar contas por chave privada;
+* Conectar-se a uma rede Hyperledger Besu;
+* Consultar saldos;
+* Enviar e receber transações;
+* Acompanhar o histórico de operações na blockchain.

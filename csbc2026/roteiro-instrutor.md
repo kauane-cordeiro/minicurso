@@ -157,26 +157,38 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-#### 1.2 Crie a VM
+#### 1.2 Criar e iniciar a máquina virtual
+
+Execute o comando abaixo para provisionar e iniciar a máquina virtual definida no `Vagrantfile`:
+
 ```bash
 vagrant up
 ```
 
+# 2. Instalação do VNC e Google Chrome
 
-# 2. Instalar VNC e Google Browser:
+#### 2.1 Acessar a máquina virtual
 
-#### 2.1 Acesse a VM
+Conecte-se à máquina virtual utilizando o Vagrant:
+
 ```bash
 vagrant ssh
 ```
-#### 2.2 Acesse o usuário iliada
 
-Usuario: iliada
-Pass: sorj3508#
+#### 2.2 Acessar o usuário do laboratório
+
+Altere para o usuário utilizado nos laboratórios:
+
+**Usuário:** iliada  
+**Senha:** sorj3508#
+
 ```bash
 su - iliada
 ```
-#### 2.3 Crie e execute o script setup-vnc.sh
+
+#### 2.3 Criar e executar o script de instalação
+
+Crie o arquivo `setup-vnc.sh`, adicione o conteúdo disponibilizado a seguir e execute o script para instalar e configurar o ambiente gráfico, o VNC e o Google Chrome.
 
 ```bash
 nano setup-vnc.sh
@@ -371,34 +383,64 @@ sudo systemctl restart vncserver@1.service
 sudo systemctl status vncserver@1.service
 ```
 
-# 3. Clonar Repositórios:
+# 3. Clonagem dos Repositórios
 
-### 3.1 Crie os diretório iliada 
+#### 3.1 Criar o diretório de trabalho
+
+Crie o diretório que será utilizado para armazenar os repositórios do laboratório e acesse-o:
+
 ```bash
-mkdir iliada
-cd iliada
+mkdir -p ~/iliada
+cd ~/iliada
 ```
 
-### 3.2 Clone os repositórios da rede Besu para o minicurso:
+#### 3.2 Clonar os repositórios da rede Besu
+
+Clone os repositórios contendo os ambientes do instrutor e dos alunos para os laboratórios baseados em Hyperledger Besu:
+
 ```bash
 git clone https://user:access_token@git.rnp.br/iliada-blockchain/m2/minicurso-handson-besu.git rede-besu
+
 git clone https://user:access_token@git.rnp.br/iliada-blockchain/m2/minicurso-handson-besu-aluno.git rede-besu-aluno
 ```
 
-### 3.3 Clone os repositórios da rede Fabric para o minicurso:
+#### 3.3 Clonar os repositórios da rede Fabric
+
+Clone os repositórios contendo os ambientes do instrutor e dos alunos para os laboratórios baseados em Hyperledger Fabric:
+
 ```bash
-# git fabric
-# gi fabric-aluno
+# git clone <repositorio-fabric> rede-fabric
+
+# git clone <repositorio-fabric-aluno> rede-fabric-aluno
 ```
 
-# 4. instalar o Java:
+---
+
+# 4. Instalação do Java 17
+
+O Hyperledger Besu é executado sobre a JVM (Java Virtual Machine). Portanto, é necessário instalar o Java 17 antes de iniciar os laboratórios.
+
+#### 4.1 Instalar o Java
+
 ```bash
 apt-cache search openjdk | grep openjdk-17
+
 sudo apt install -y openjdk-17-jre
 sudo apt install -y openjdk-17-jdk
+```
+
+#### 4.2 Validar a instalação
+
+```bash
 java --version
+```
+
+#### 4.3 Configurar a variável JAVA_HOME
+
+```bash
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
+
 echo $JAVA_HOME
 ```
 # 5 Intalar a Extensão do MetaMask
@@ -418,34 +460,42 @@ Fixe a extensão no seu navegador para facilitar o acesso:
 ![Fix Extension MetaMask](images/metamask/01.4-fix-ext.png)
 ---
 
-# 6 Conect-se a Carteira já criada:
-#### Para importar uma carteira existente:
-Senha de 12 palavras: wood latin transfer merge champion claw shuffle jelly rebuild castle basic weather
+# 6. Conectar a Carteira MetaMask
+
+#### 6.1 Importar uma carteira existente
+
+Selecione a opção **Importar carteira existente** e informe a frase de recuperação (Secret Recovery Phrase) abaixo:
+
+```text
+wood latin transfer merge champion claw shuffle jelly rebuild castle basic weather
+```
+
 ![Import Wallet MetaMask](images/metamask/02.2-import-wallet.png)
 
-# 7. Importando uma Conta de Teste
+---
 
-Menu:
+# 7. Importar uma Conta de Teste
+
+No menu da MetaMask, acesse:
 
 ```text
 Contas
-→ Importar Conta : 0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
+→ Importar Conta
 ```
 
-Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.
+Selecione a opção **Chave Privada** e informe a chave da conta de teste:
+
+```text
+0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
+```
 
 ![Import Account MetaMask](images/metamask/03-import-account.png)
 
-# 8. Adicionando a Rede Besu
+---
 
-Preencha os dados da rede:
+# 8. Adicionar a Rede Besu
 
-| Campo | Valor |
-|---------|---------|
-| Nome da Rede | rede-besu |
-| RPC URL | http://IP-DO-NODE:8545 |
-| Chain ID | 10001 |
-| Símbolo | ETH |
+Preencha os dados da rede conforme o ambiente disponibilizado para o laboratório.
 
 ### Exemplo do Minicurso
 
@@ -458,34 +508,43 @@ Preencha os dados da rede:
 
 ![Connect network Metamask](images/metamask/04-connect-network.png)
 
-### Troubleshooting da Rede RPC:
-A rede Besu não conseguiu conectar?
+---
 
-Faça o teste da porta RCP conforme abaixo:
+## Troubleshooting de Conectividade RPC
 
-##### 1. Dentro da VM Vagrant:
+A MetaMask não conseguiu conectar à rede Besu?
 
+Valide a disponibilidade do serviço RPC executando os testes abaixo.
+
+### 1. Dentro da máquina virtual
+
+```bash
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
 http://localhost:8545
+```
 
-##### 2. No host físico onde o Vagrant roda:
+### 2. No host físico que executa o Vagrant
 
+```bash
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
 http://localhost:20414
+```
 
-##### 3. De fora, pelo IP público:
+### 3. A partir de uma máquina externa
 
+```bash
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
 http://200.159.254.122:20414
----
+```
 
-# 5. Conectando-se à Rede
+Se o terceiro teste não retornar uma resposta do Hyperledger Besu, verifique as regras de firewall, o redirecionamento de portas do Vagrant e a conectividade de rede entre o cliente e o host.
+# 9. Conectando-se à Rede
 
 ```text
 MetaMask
