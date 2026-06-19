@@ -100,7 +100,8 @@ Acesse:
 
 https://metamask.io/download
 
-Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chrome**.
+
+Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chrome ou Add Extension**.
 
 ![Download MetaMask](images/metamask/01.1-metamask-download.png)
 ![Add Extension MetaMask](images/metamask/01.2-add-ext.png)
@@ -135,7 +136,7 @@ Menu:
 
 ```text
 Contas
-→ Importar Conta
+→ Importar Conta : 0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
 ```
 
 Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.

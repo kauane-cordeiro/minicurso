@@ -1,18 +1,46 @@
-# 1.  Instanciar VM
+# 1. Instanciação da Máquina Virtual
 
-O exemplo de Vagrantfile para instanciação de máquina virtual abaixo é o modelo já validado e utilizado em edições anteriores do minicurso.
+O `Vagrantfile` apresentado a seguir corresponde ao modelo validado e utilizado nas edições anteriores do minicurso, servindo como base para a criação do ambiente de laboratório.
 
-Nomenclatura padrão: iliad-ambiente-rnp-minicurso-SiglaEstadoNumeroVMHost
 
-Observação: Cada Host poderá alocar até 5 Máquinas Virtuais por ambiente seguindo o padrão de range de portas:
+### Convenção de Nomenclatura das Máquinas Virtuais
 
-01 ao 20
-21 ao 40
-41 ao 60
-61 ao 80
-81 ao 99
+As máquinas virtuais devem seguir o padrão de nomenclatura abaixo:
 
-Acesse a planilha que descreve a alocação atual: (https://nasnuvensrnp.sharepoint.com/:x:/r/sites/ILIADA/_layouts/15/Doc.aspx?sourcedoc=%7BDA2E4EC2-0DCC-43E7-B935-391C8E2505CF%7D&file=Minicurso%20HandsOn%20ILIADA-%20WTestbeds%202025.xlsx&action=default&mobileredirect=true)
+```text
+iliada-<ambiente>-rnp-minicurso-<sigla_estado><numero_vm_host>
+```
+
+**Exemplo:**
+
+```text
+iliada-prod-rnp-minicurso-rj1
+iliada-prod-rnp-minicurso-pr3
+iliada-dev-rnp-minicurso-ba2
+```
+
+---
+
+### Alocação de Máquinas Virtuais por Host
+
+Cada host pode acomodar até **5 máquinas virtuais por ambiente**, seguindo os intervalos de portas definidos na tabela abaixo:
+
+| Máquina Virtual | Faixa de Portas |
+| --------------- | --------------- |
+| VM 1            | 01 – 20         |
+| VM 2            | 21 – 40         |
+| VM 3            | 41 – 60         |
+| VM 4            | 61 – 80         |
+| VM 5            | 81 – 99         |
+
+---
+
+### Controle de Alocação
+
+A distribuição atual de hosts, máquinas virtuais e faixas de portas pode ser consultada na planilha abaixo:
+
+📊 **[Planilha de Alocação de Ambientes e Portas](https://nasnuvensrnp.sharepoint.com/:x:/r/sites/ILIADA/_layouts/15/Doc.aspx?sourcedoc=%7BDA2E4EC2-0DCC-43E7-B935-391C8E2505CF%7D&file=Minicurso%20HandsOn%20ILIADA-%20WTestbeds%202025.xlsx&action=default&mobileredirect=true)**
+
 
 
 Exemplo: Primeira VM (1) do Host Alocado no PoP do estado do Rio de Janeiro (RJ)
@@ -373,3 +401,97 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 echo $JAVA_HOME
 ```
+# 5 Intalar a Extensão do MetaMask
+
+Acesse:
+
+https://metamask.io/download
+
+Selecione **Chrome** ou o navegador de sua escolha e clique em **Ex: Usar no chrome ou Add Extension**.
+
+![Download MetaMask](images/metamask/01.1-metamask-download.png)
+![Add Extension MetaMask](images/metamask/01.2-add-ext.png)
+![Add Extension MetaMask](images/metamask/01.3-add-ext.png)
+
+Fixe a extensão no seu navegador para facilitar o acesso:
+
+![Fix Extension MetaMask](images/metamask/01.4-fix-ext.png)
+---
+
+# 6 Conect-se a Carteira já criada:
+#### Para importar uma carteira existente:
+Senha de 12 palavras: wood latin transfer merge champion claw shuffle jelly rebuild castle basic weather
+![Import Wallet MetaMask](images/metamask/02.2-import-wallet.png)
+
+# 7. Importando uma Conta de Teste
+
+Menu:
+
+```text
+Contas
+→ Importar Conta : 0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
+```
+
+Selecione **Chave Privada** e informe a chave criptografica da conta que deseja utilizar.
+
+![Import Account MetaMask](images/metamask/03-import-account.png)
+
+# 8. Adicionando a Rede Besu
+
+Preencha os dados da rede:
+
+| Campo | Valor |
+|---------|---------|
+| Nome da Rede | rede-besu |
+| RPC URL | http://IP-DO-NODE:8545 |
+| Chain ID | 10001 |
+| Símbolo | ETH |
+
+### Exemplo do Minicurso
+
+| Campo | Valor |
+|---------|---------|
+| Nome da Rede | iliada-204-rnp-minicurso-rn1 |
+| RPC URL | http://200.137.0.26:20414 |
+| Chain ID | 10001 |
+| Símbolo | ETH |
+
+![Connect network Metamask](images/metamask/04-connect-network.png)
+
+### Troubleshooting da Rede RPC:
+A rede Besu não conseguiu conectar?
+
+Faça o teste da porta RCP conforme abaixo:
+
+##### 1. Dentro da VM Vagrant:
+
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://localhost:8545
+
+##### 2. No host físico onde o Vagrant roda:
+
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://localhost:20414
+
+##### 3. De fora, pelo IP público:
+
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' \
+http://200.159.254.122:20414
+---
+
+# 5. Conectando-se à Rede
+
+```text
+MetaMask
+→ Selecionar Rede
+→ iliada-besu
+```
+![Connect network and Metamask wallet](images/metamask/05-connect-account-and-network.png)
+
+---
