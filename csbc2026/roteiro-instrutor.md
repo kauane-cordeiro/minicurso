@@ -450,7 +450,7 @@ echo $JAVA_HOME
 ```text
 URL: https://guacamole.testbeds.rnp.br/
 Usuário: aluno-<numero-do-aluno> 
-Senha: Iliad@Minicurso2026
+Senha: iliada2026
 ```
 ###### (O numero do aluno pode ser encontrado na planilha de alocação atual)
 ---
