@@ -109,13 +109,6 @@ Selecione a opção **Chave Privada** e informe a chave privada da conta que des
 
 Preencha os dados da rede conforme os parâmetros disponibilizados pelo instrutor.
 
-| Campo        | Valor                  |
-| ------------ | ---------------------- |
-| Nome da Rede | rede-besu              |
-| RPC URL      | http://IP-DO-NODE:8545 |
-| Chain ID     | 10001                  |
-| Símbolo      | ETH                    |
-
 ### Exemplo do Minicurso
 
 | Campo        | Valor                        |
@@ -129,7 +122,7 @@ Preencha os dados da rede conforme os parâmetros disponibilizados pelo instruto
 
 ---
 
-## Troubleshooting de Conectividade RPC
+<!-- ## Troubleshooting de Conectividade RPC
 
 A MetaMask não conseguiu conectar à rede Besu?
 
@@ -162,7 +155,7 @@ curl -X POST \
 http://IP-PUBLICO:20414
 ```
 
-Caso o terceiro teste não retorne uma resposta do Hyperledger Besu, verifique as configurações de firewall, redirecionamento de portas e conectividade de rede.
+Caso o terceiro teste não retorne uma resposta do Hyperledger Besu, verifique as configurações de firewall, redirecionamento de portas e conectividade de rede. -->
 
 ---
 
