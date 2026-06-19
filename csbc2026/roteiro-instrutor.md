@@ -375,8 +375,8 @@ echo "=============================================="
 
 Execute:
 ```bash
-chmod +x setup_vnc.sh
-sudo ./setup_vnc.sh
+chmod +x setup-vnc.sh
+sudo ./setup-vnc.sh
 
 sudo systemctl daemon-reload
 sudo systemctl restart vncserver@1.service
@@ -445,7 +445,16 @@ echo $JAVA_HOME
 ```
 # 5 Intalar a Extensão do MetaMask
 
-Acesse:
+#### Acesso Guacamole:
+
+```text
+URL: https://guacamole.testbeds.rnp.br/
+Usuário: aluno-<numero-do-aluno> 
+Senha: Iliad@Minicurso2026
+```
+###### (O numero do aluno pode ser encontrado na planilha de alocação atual)
+---
+
 
 https://metamask.io/download
 
