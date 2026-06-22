@@ -172,6 +172,7 @@ nano $CONFIGDIR/nodes/org4-node1/docker-compose.yml
 Cole o conteúdo abaixo:
 
 ```yaml
+x-defaults:
   logging: &logging-default
     options:
       max-size: '10m'
@@ -181,6 +182,7 @@ Cole o conteúdo abaixo:
   localization: &localization-default
     TZ: America/Sao_Paulo
     LANG: en_US.UTF-8
+
 services:
   org4-node1:
     image: hyperledger/besu:24.5.4
