@@ -222,6 +222,7 @@ Cada organização terá um arquivo docker-compose:
 
 Exemplo Org1:
 ```bash
+x-defaults:
   logging: &logging-default
     options:
       max-size: '10m'
@@ -231,6 +232,7 @@ Exemplo Org1:
   localization: &localization-default
     TZ: America/Sao_Paulo
     LANG: en_US.UTF-8
+
 
 services:
   org1-node1:
