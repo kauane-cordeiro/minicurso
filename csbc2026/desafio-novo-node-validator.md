@@ -55,7 +55,8 @@ Ao final deste desafio você será capaz de:
 
 Configure as variáveis utilizadas durante o laboratório.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 BASEDIR=/home/iliada/iliada/rede-besu
@@ -76,7 +77,8 @@ org4-node1
 
 Crie a estrutura de diretórios.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 mkdir -p $CONFIGDIR/nodes/org4-node1
@@ -96,7 +98,8 @@ ls -la $BASEDIR/volumes
 
 Acesse o diretório dos binários do Besu.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 cd $BASEDIR/bin
@@ -104,7 +107,8 @@ cd $BASEDIR/bin
 
 Gere a chave pública.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 besu-24.5.4/bin/besu \
@@ -115,7 +119,8 @@ besu-24.5.4/bin/besu \
 
 Gere o endereço do nó.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 besu-24.5.4/bin/besu \
@@ -126,7 +131,8 @@ besu-24.5.4/bin/besu \
 
 Verifique os arquivos criados.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 ls -la $CONFIGDIR/nodes/org4-node1
@@ -134,7 +140,8 @@ ls -la $CONFIGDIR/nodes/org4-node1
 
 Visualize a chave pública.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/key.pub
@@ -142,7 +149,8 @@ cat $CONFIGDIR/nodes/org4-node1/key.pub
 
 Visualize o endereço do nó.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/node.id
@@ -154,7 +162,8 @@ cat $CONFIGDIR/nodes/org4-node1/node.id
 
 Crie o arquivo de configuração.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 nano $CONFIGDIR/nodes/org4-node1/docker-compose.yml
@@ -163,6 +172,15 @@ nano $CONFIGDIR/nodes/org4-node1/docker-compose.yml
 Cole o conteúdo abaixo:
 
 ```yaml
+  logging: &logging-default
+    options:
+      max-size: '10m'
+      max-file: '5'
+    driver: json-file
+
+  localization: &localization-default
+    TZ: America/Sao_Paulo
+    LANG: en_US.UTF-8
 services:
   org4-node1:
     image: hyperledger/besu:24.5.4
@@ -239,7 +257,8 @@ cat $CONFIGDIR/nodes/org4-node1/docker-compose.yml
 
 Acesse a pasta do novo nó.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 cd $CONFIGDIR/nodes/org4-node1
@@ -247,7 +266,8 @@ cd $CONFIGDIR/nodes/org4-node1
 
 Inicie o container.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 docker-compose up -d
@@ -261,7 +281,8 @@ docker ps
 
 Acompanhe os logs.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 docker-compose logs -f
@@ -281,7 +302,8 @@ Neste momento o nó ainda não conhece nenhum peer da rede.
 
 Verifique a quantidade de peers.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -308,7 +330,8 @@ Resultado esperado:
 
 Agora será necessário obter o endereço ENODE de um dos validadores da rede.
 
-Execute em um dos nós da rede existente:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO em um dos nós da rede existente:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -341,7 +364,8 @@ enode://abc123...@10.0.0.10:30301
 
 Utilize o ENODE obtido anteriormente.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -369,8 +393,8 @@ Resultado esperado:
 # 9. Confirmar a Conexão com a Rede
 
 Verifique novamente os peers.
-
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -399,7 +423,8 @@ ou superior.
 
 Verifique o bloco atual da rede.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -414,7 +439,8 @@ curl -X POST http://localhost:8545 \
 
 Verifique o bloco atual do novo nó.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -433,7 +459,8 @@ Aguarde até que os valores sejam iguais ou muito próximos.
 
 # 11. Consultar os Validadores Atuais
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -452,7 +479,8 @@ Observe que o endereço do novo nó ainda não aparece entre os validadores.
 
 # 12. Obter o Endereço do Novo Nó
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/node.id
@@ -460,7 +488,8 @@ cat $CONFIGDIR/nodes/org4-node1/node.id
 
 Armazene o valor em uma variável.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 NEW_VALIDATOR=$(cat $CONFIGDIR/nodes/org4-node1/node.id)
@@ -474,7 +503,8 @@ echo $NEW_VALIDATOR
 
 Envie a proposta de inclusão do novo validador.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -540,7 +570,8 @@ Após atingir o quórum necessário, o nó será promovido a validador.
 
 # 15. Confirmar a Entrada no Consenso
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -559,7 +590,8 @@ O endereço do novo nó deverá aparecer na lista.
 
 # 16. Consultar Métricas de Assinatura
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:8545 \
@@ -580,7 +612,8 @@ Após alguns blocos, o novo validador começará a aparecer nas métricas de ass
 
 Consultar Chain ID.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -595,7 +628,8 @@ curl -X POST http://localhost:85499 \
 
 Consultar altura da blockchain.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl -X POST http://localhost:85499 \
@@ -610,7 +644,8 @@ curl -X POST http://localhost:85499 \
 
 Consultar métricas Prometheus.
 
-Execute:
+> [!IMPORTANT]
+> 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
 curl http://localhost:95499/metrics
