@@ -235,8 +235,17 @@ services:
 
     ports:
       - 30399:30399
-      - 85499:8545
-      - 95499:9545
+      - 8599:8545
+      - 9599:9545
+
+    networks:
+      org1-node1_default:
+        aliases:
+          - org4-node1
+
+networks:
+  org1-node1_default:
+    external: true
 ```
 
 Salve o arquivo.
@@ -308,14 +317,7 @@ Verifique a quantidade de peers.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"net_peerCount",
-  "params":[],
-  "id":1
-}'
+curl -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"net_peerCount", "params":[], "id":1 }'
 ```
 
 Resultado esperado:
@@ -336,14 +338,7 @@ Agora será necessário obter o endereço ENODE de um dos validadores da rede.
 > 🚀 EXECUTE O COMANDO ABAIXO em um dos nós da rede existente:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"admin_nodeInfo",
-  "params":[],
-  "id":1
-}'
+curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"admin_nodeInfo", "params":[], "id":1 }'
 ```
 
 Localize o campo:
@@ -370,16 +365,7 @@ Utilize o ENODE obtido anteriormente.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"admin_addPeer",
-  "params":[
-    "enode://SEU_ENODE_AQUI"
-  ],
-  "id":1
-}'
+curl -X POST http://localhost:8599 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"admin_addPeer","params":["ENODE_AQUI"],"id":1}'
 ```
 
 Resultado esperado:
@@ -399,19 +385,12 @@ Verifique novamente os peers.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"net_peerCount",
-  "params":[],
-  "id":1
-}'
+curl -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"net_peerCount", "params":[], "id":1 }'
 ```
 
 Resultado esperado:
 
-```json
+```bash
 {
   "result":"0x1"
 }
@@ -429,14 +408,7 @@ Verifique o bloco atual da rede.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"eth_blockNumber",
-  "params":[],
-  "id":1
-}'
+curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }'
 ```
 
 Verifique o bloco atual do novo nó.
@@ -445,14 +417,7 @@ Verifique o bloco atual do novo nó.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"eth_blockNumber",
-  "params":[],
-  "id":1
-}'
+curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }' | jq
 ```
 
 Aguarde até que os valores sejam iguais ou muito próximos.
@@ -465,14 +430,7 @@ Aguarde até que os valores sejam iguais ou muito próximos.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"qbft_getValidatorsByBlockNumber",
-  "params":["latest"],
-  "id":1
-}'
+curl -s -X POST http://localhost:8545 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"qbft_getValidatorsByBlockNumber","params":["latest"],"id":1}' | jq
 ```
 
 Observe que o endereço do novo nó ainda não aparece entre os validadores.
@@ -509,17 +467,7 @@ Envie a proposta de inclusão do novo validador.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d "{
-  \"jsonrpc\":\"2.0\",
-  \"method\":\"qbft_proposeValidatorVote\",
-  \"params\":[
-    \"$NEW_VALIDATOR\",
-    true
-  ],
-  \"id\":1
-}"
+curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }" | jq
 ```
 
 Resultado esperado:
@@ -539,31 +487,25 @@ Repita a votação a partir dos demais validadores da rede.
 Exemplo:
 
 ```bash
-curl -X POST http://localhost:8546 \
--H "Content-Type: application/json" \
--d "{
-  \"jsonrpc\":\"2.0\",
-  \"method\":\"qbft_proposeValidatorVote\",
-  \"params\":[
-    \"$NEW_VALIDATOR\",
-    true
-  ],
-  \"id\":1
-}"
+curl -X POST http://localhost:8546  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }"
 ```
 
 ```bash
-curl -X POST http://localhost:8547 \
--H "Content-Type: application/json" \
--d "{
-  \"jsonrpc\":\"2.0\",
-  \"method\":\"qbft_proposeValidatorVote\",
-  \"params\":[
-    \"$NEW_VALIDATOR\",
-    true
-  ],
-  \"id\":1
-}"
+curl -X POST http://localhost:8547  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }"
+```
+
+```bash
+curl -X POST http://localhost:8548  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }"
+```
+
+```bash
+curl -X POST http://localhost:8549  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }"
+```
+
+ou 
+
+```bash
+for PORT in 8545 8546 8547 8548 8549 8550; do echo "Votando no RPC $PORT"; curl -s -X POST http://localhost:$PORT -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"method\":\"qbft_proposeValidatorVote\",\"params\":[\"$NEW_VALIDATOR\",true],\"id\":1}"; echo; done
 ```
 
 Após atingir o quórum necessário, o nó será promovido a validador.
@@ -576,14 +518,13 @@ Após atingir o quórum necessário, o nó será promovido a validador.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"qbft_getValidatorsByBlockNumber",
-  "params":["latest"],
-  "id":1
-}'
+curl -s -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"qbft_getValidatorsByBlockNumber", "params":["latest"], "id":1 }' | jq
+```
+
+ou faça a consulta informando o node.id do novo nó:
+
+```bash
+curl -s -X POST http://localhost:8545 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"qbft_getValidatorsByBlockNumber","params":["latest"],"id":1}' | grep "$NEW_VALIDATOR" | jq
 ```
 
 O endereço do novo nó deverá aparecer na lista.
@@ -596,14 +537,7 @@ O endereço do novo nó deverá aparecer na lista.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:8545 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"qbft_getSignerMetrics",
-  "params":["earliest","latest"],
-  "id":1
-}'
+curl -s -X POST http://localhost:8545 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"qbft_getSignerMetrics","params":["earliest","latest"],"id":1}' | jq
 ```
 
 Após alguns blocos, o novo validador começará a aparecer nas métricas de assinatura.
@@ -617,15 +551,9 @@ Consultar Chain ID.
 > [!IMPORTANT]
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
+Esse comando consulta o Chain ID da blockchain à qual o nó conectado na porta 8599 pertence.
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"eth_chainId",
-  "params":[],
-  "id":1
-}'
+curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_chainId", "params":[], "id":1 }'  | jq
 ```
 
 Consultar altura da blockchain.
@@ -634,14 +562,7 @@ Consultar altura da blockchain.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl -X POST http://localhost:85499 \
--H "Content-Type: application/json" \
--d '{
-  "jsonrpc":"2.0",
-  "method":"eth_blockNumber",
-  "params":[],
-  "id":1
-}'
+curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }' | jq
 ```
 
 Consultar métricas Prometheus.
@@ -650,7 +571,7 @@ Consultar métricas Prometheus.
 > 🚀 EXECUTE O COMANDO ABAIXO:
 
 ```bash
-curl http://localhost:95499/metrics
+curl http://localhost:9599/metrics
 ```
 
 ---
