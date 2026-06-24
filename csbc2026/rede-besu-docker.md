@@ -87,7 +87,7 @@ Para exibir o valor da variável de ambiente JAVA_HOME
 echo $JAVA_HOME
 ```
 
-### Disponibilizamos no diretório ~/iliada/ dois repositórios: rede-besu e rede-besu-aluno. Estes repositórios contém scripts de apoio para executar ações de configuração, verificação e execução da rede de forma otimizada. 
+#### Disponibilizamos no diretório ~/iliada/ dois repositórios: rede-besu e rede-besu-aluno. Estes repositórios contém scripts de apoio para executar ações de configuração, verificação e execução da rede de forma otimizada. 
 
 Para verificar se todos os pré-requisitos foram corretamente atendidos 
 > [!IMPORTANT]
@@ -111,7 +111,7 @@ mkdir -p config/besu
 mkdir -p config/nodes
 ```
 
-# 2.2 Download do Hyperledger Besu
+## 2.2 Download do Hyperledger Besu
 
 ```bash
 cd ~/iliada/rede-besu/bin
@@ -219,6 +219,33 @@ cd $BASEDIR
 # 4. Gerar arquivos de configuração dos nodes
 
 Cada organização terá um arquivo docker-compose:
+
+#### Principais Flags de Configuração do Hyperledger Besu
+
+| Flag | Descrição |
+|--------|------------|
+| `--data-path` | Define o diretório onde serão armazenados os dados da blockchain (blocos, estado, chaves e demais arquivos do nó). |
+| `--genesis-file` | Especifica o arquivo `genesis.json` utilizado para inicialização e configuração da rede blockchain. |
+| `--static-nodes-file` | Define o arquivo contendo a lista de nós para conexões estáticas permanentes. |
+| `--bootnodes` | Especifica os nós de bootstrap utilizados para descoberta automática de pares (peer discovery). |
+| `--rpc-http-enabled` | Habilita a API JSON-RPC via HTTP para interação externa com o nó. |
+| `--rpc-http-api` | Define quais APIs JSON-RPC estarão disponíveis para consulta e administração do nó. |
+| `--metrics-enabled` | Habilita a exportação de métricas para monitoramento, normalmente consumidas pelo Prometheus. |
+| `--logging` | Define o nível de detalhamento dos logs. O nível `DEBUG` é recomendado para troubleshooting e diagnóstico de problemas. |
+
+
+## Exemplo
+
+```bash
+besu \
+  --data-path=/var/lib/besu \
+  --genesis-file=/config/genesis.json \
+  --bootnodes=enode://... \
+  --rpc-http-enabled \
+  --rpc-http-api=ADMIN,ETH,NET,QBFT,WEB3 \
+  --metrics-enabled \
+  --logging=DEBUG
+```
 
 Exemplo Org1:
 ```bash
