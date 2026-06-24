@@ -4,7 +4,7 @@
 
 Neste laboratório será construída uma rede blockchain permissionada utilizando Hyperledger Besu e o consenso QBFT.
 
-![Topologia](images/besu-docker/topologia.png)
+![Topologia](images/besu-docker/topologia2.png)
 
 ---
 
