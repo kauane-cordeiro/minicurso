@@ -91,7 +91,9 @@ echo $JAVA_HOME
 
 Para verificar se todos os pré-requisitos foram corretamente atendidos 
 > [!IMPORTANT]
-> 🚀 EXECUTE O SCRIPT:​
+> 🚀 <span style="color:red;"><strong> EXECUTE O SCRIPT:​</strong></span>:
+
+
 ```bash
 cd ~/iliada/rede-besu
 ./11-verificar-requisitos.sh​
@@ -656,6 +658,7 @@ Agora iremos remover o nodes criados e inciar a rede COMPLETA com o 6 nodes, uti
 cd $BASEDIR
 ./23-remover-nodes-e-volumes.sh
 ```
+
 
 > [!IMPORTANT]
 > 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
