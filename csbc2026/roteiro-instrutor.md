@@ -443,7 +443,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 echo $JAVA_HOME
 ```
-# 5 Intalar a Extensão do MetaMask
+# 5 Instalar a Extensão do MetaMask
 
 #### Acesso Guacamole:
 

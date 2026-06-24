@@ -33,7 +33,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plu
 Para confirma a correta instalação e versão do Docker
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 sudo docker run hello-world
@@ -50,7 +50,7 @@ sudo chmod +x /usr/bin/docker-compose
 Para confirma a correta instalação e versão do Docker Compose
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 docker-compose --version
@@ -67,7 +67,7 @@ sudo apt install -y openjdk-17-jdk
 Para confirma a correta instalação e versão do Java
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 java --version
@@ -81,7 +81,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 Para exibir o valor da variável de ambiente JAVA_HOME
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 echo $JAVA_HOME
@@ -124,7 +124,7 @@ Para acessar o repositório de instalação dos binários do Besu:
 
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cd ~/iliada/rede-besu/bin
@@ -132,7 +132,7 @@ cd ~/iliada/rede-besu/bin
 Para verificar versão instalada e os parâmetros disponíveis (besu [OPTIONS])
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 besu-24.5.4/bin/besu --version
@@ -145,7 +145,7 @@ besu-24.5.4/bin/besu --help
 Configure as variáveis de ambiente:
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 BASEDIR=/home/iliada/iliada/rede-besu
@@ -205,7 +205,7 @@ besu-24.5.4/bin/besu --data-path=$CONFIGDIR/nodes/org3-node2 public-key export-a
 Para verificar o material criptográfico gerado para cada node​
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cd $BASEDIR
@@ -318,14 +318,14 @@ nano $CONFIGDIR/nodes/org3-node2/docker-compose.yml
 Para conferir o arquivo docker-compose.yml de qualquer node apenas substitua o numero da organização e node no comando abaixo
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 ```bash
 cat $CONFIGDIR/nodes/org1-node1/docker-compose.yml
 ```
 Ou verifique todas as configurações com o script:
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 
 ```bash
 ./14-verificar-config-nodes.sh
@@ -335,7 +335,7 @@ Após validar que a configuração dos nós foi criada corretamente, execute o s
 
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 
 ```bash
 ./03-gerar-static-nodes.sh
@@ -351,7 +351,7 @@ O arquivo initialValidators.json contém os node.id de todos os validadores inic
 
 Acesse o diretório:
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cd $CONFIGDIR/besu/
@@ -364,7 +364,7 @@ nano initialValidators.json
 Para visualizar o Validadores inicias definidos na rede
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 
 ```bash
 cat initialValidators.json
@@ -379,7 +379,7 @@ Geração da string codificada que preenche o campo de validadores inicias da re
 Para conferir o valor de extraData
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 ```bash
 cat extraData.json
 ```
@@ -492,7 +492,7 @@ Modelo genesis.json utilizado neste roteiro:
 Para conferir o arquivo genesis.json 
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 ```bash
 cat $CONFIGDIR/besu/genesis.json
 ```
@@ -613,7 +613,7 @@ mkdir -p $BASEDIR/volumes/org3-node2
 Para verificar se todos os volumes foram devidamente criados:
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 
 ```bash
 ll $BASEDIR/volumes
@@ -629,7 +629,7 @@ Iremos primeiro executar dois nós da rede a observar o log (Observe que um peer
 
 Executar para cada nó:
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 ```bash
 cd $CONFIGDIR/nodes/org1-node1
 docker-compose up -d
@@ -639,7 +639,7 @@ Para sair da visualização do log:
 [Ctrl+C]
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 ```bash
 cd $CONFIGDIR/nodes/org2-node2
 docker-compose up -d
@@ -651,14 +651,14 @@ Para sair da visualização do log:
 Agora iremos remover o nodes criados e inciar a rede COMPLETA com o 6 nodes, utilizando o script abaixo:
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 ```bash
 cd $BASEDIR
 ./23-remover-nodes-e-volumes.sh
 ```
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>
 ```bash
 cd $BASEDIR
 ./21-iniciar-nodes.sh

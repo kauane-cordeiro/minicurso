@@ -56,7 +56,7 @@ Ao final deste desafio você será capaz de:
 Configure as variáveis utilizadas durante o laboratório.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 BASEDIR=/home/iliada/iliada/rede-besu
@@ -78,7 +78,7 @@ org4-node1
 Crie a estrutura de diretórios.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 mkdir -p $CONFIGDIR/nodes/org4-node1
@@ -99,7 +99,7 @@ ls -la $BASEDIR/volumes
 Acesse o diretório dos binários do Besu.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cd $BASEDIR/bin
@@ -108,7 +108,7 @@ cd $BASEDIR/bin
 Gere a chave pública.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 besu-24.5.4/bin/besu \
@@ -120,7 +120,7 @@ besu-24.5.4/bin/besu \
 Gere o endereço do nó.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 besu-24.5.4/bin/besu \
@@ -132,7 +132,7 @@ besu-24.5.4/bin/besu \
 Verifique os arquivos criados.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 ls -la $CONFIGDIR/nodes/org4-node1
@@ -141,7 +141,7 @@ ls -la $CONFIGDIR/nodes/org4-node1
 Visualize a chave pública.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/key.pub
@@ -150,7 +150,7 @@ cat $CONFIGDIR/nodes/org4-node1/key.pub
 Visualize o endereço do nó.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/node.id
@@ -163,7 +163,7 @@ cat $CONFIGDIR/nodes/org4-node1/node.id
 Crie o arquivo de configuração.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 nano $CONFIGDIR/nodes/org4-node1/docker-compose.yml
@@ -269,7 +269,7 @@ cat $CONFIGDIR/nodes/org4-node1/docker-compose.yml
 Acesse a pasta do novo nó.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cd $CONFIGDIR/nodes/org4-node1
@@ -278,7 +278,7 @@ cd $CONFIGDIR/nodes/org4-node1
 Inicie o container.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 docker-compose up -d
@@ -293,7 +293,7 @@ docker ps
 Acompanhe os logs.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 docker-compose logs -f
@@ -314,7 +314,7 @@ Neste momento o nó ainda não conhece nenhum peer da rede.
 Verifique a quantidade de peers.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"net_peerCount", "params":[], "id":1 }'
@@ -335,7 +335,7 @@ Resultado esperado:
 Agora será necessário obter o endereço ENODE de um dos validadores da rede.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO em um dos nós da rede existente:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span> em um dos nós da rede existente:
 
 ```bash
 curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"admin_nodeInfo", "params":[], "id":1 }'
@@ -362,7 +362,7 @@ enode://abc123...@10.0.0.10:30301
 Utilize o ENODE obtido anteriormente.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -X POST http://localhost:8599 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"admin_addPeer","params":["ENODE_AQUI"],"id":1}'
@@ -382,7 +382,7 @@ Resultado esperado:
 
 Verifique novamente os peers.
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"net_peerCount", "params":[], "id":1 }'
@@ -405,7 +405,7 @@ ou superior.
 Verifique o bloco atual da rede.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }'
@@ -414,7 +414,7 @@ curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "
 Verifique o bloco atual do novo nó.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }' | jq
@@ -427,7 +427,7 @@ Aguarde até que os valores sejam iguais ou muito próximos.
 # 11. Consultar os Validadores Atuais
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -s -X POST http://localhost:8545 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"qbft_getValidatorsByBlockNumber","params":["latest"],"id":1}' | jq
@@ -440,7 +440,7 @@ Observe que o endereço do novo nó ainda não aparece entre os validadores.
 # 12. Obter o Endereço do Novo Nó
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 cat $CONFIGDIR/nodes/org4-node1/node.id
@@ -449,7 +449,7 @@ cat $CONFIGDIR/nodes/org4-node1/node.id
 Armazene o valor em uma variável.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 NEW_VALIDATOR=$(cat $CONFIGDIR/nodes/org4-node1/node.id)
@@ -464,7 +464,7 @@ echo $NEW_VALIDATOR
 Envie a proposta de inclusão do novo validador.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -X POST http://localhost:8545  -H "Content-Type: application/json"  -d "{ \"jsonrpc\":\"2.0\", \"method\":\"qbft_proposeValidatorVote\", \"params\":[ \"$NEW_VALIDATOR\", true ], \"id\":1 }" | jq
@@ -515,7 +515,7 @@ Após atingir o quórum necessário, o nó será promovido a validador.
 # 15. Confirmar a Entrada no Consenso
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -s -X POST http://localhost:8545  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"qbft_getValidatorsByBlockNumber", "params":["latest"], "id":1 }' | jq
@@ -534,7 +534,7 @@ O endereço do novo nó deverá aparecer na lista.
 # 16. Consultar Métricas de Assinatura
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -s -X POST http://localhost:8545 -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"qbft_getSignerMetrics","params":["earliest","latest"],"id":1}' | jq
@@ -549,7 +549,7 @@ Após alguns blocos, o novo validador começará a aparecer nas métricas de ass
 Consultar Chain ID.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 Esse comando consulta o Chain ID da blockchain à qual o nó conectado na porta 8599 pertence.
 ```bash
@@ -559,7 +559,7 @@ curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '
 Consultar altura da blockchain.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '{ "jsonrpc":"2.0", "method":"eth_blockNumber", "params":[], "id":1 }' | jq
@@ -568,7 +568,7 @@ curl -s -X POST http://localhost:8599  -H "Content-Type: application/json"  -d '
 Consultar métricas Prometheus.
 
 > [!IMPORTANT]
-> 🚀 EXECUTE O COMANDO ABAIXO:
+> 🚀 <span style="color:red;"><strong>EXECUTE O COMANDO ABAIXO</strong></span>:
 
 ```bash
 curl http://localhost:9599/metrics
