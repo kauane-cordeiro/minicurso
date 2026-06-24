@@ -386,6 +386,44 @@ cat extraData.json
 
 ## 5.3 genesis.json
 O arquivo genesis.json é o arquivo responsável por definir a configuração inicial da blockchain. Ele contém parâmetros fundamentais da rede, como o mecanismo de consenso (QBFT), os validadores iniciais, o identificador da rede (chainId), regras de protocolo e o estado inicial do ledger. Todos os nós da rede devem utilizar exatamente o mesmo arquivo genesis.json, pois qualquer divergência resultará na criação de uma blockchain diferente e incompatível com os demais participantes.
+
+# Principais Configurações do `genesis.json`
+
+| Configuração | Descrição |
+|-------------|-----------|
+| `chainId` | Identificador único da blockchain. Utilizado para evitar que transações sejam reproduzidas entre redes diferentes. |
+| `contractSizeLimit` | Define o tamanho máximo permitido para o bytecode de um Smart Contract implantado na rede. |
+| `qbft` | Conjunto de parâmetros do protocolo de consenso QBFT (Quorum Byzantine Fault Tolerance). |
+| `blockPeriodSeconds` | Tempo mínimo, em segundos, entre a criação de dois blocos consecutivos. |
+| `bootnodes` | Lista de nós iniciais utilizados para descoberta e conexão dos demais participantes da rede. |
+| `discovery` | Configurações relacionadas à descoberta automática de pares (peer discovery). |
+| `gasLimit` | Quantidade máxima de gas que pode ser consumida pelas transações de um bloco. |
+| `alloc` | Define a distribuição inicial de saldo das contas e permite a pré-implantação de Smart Contracts na rede. |
+| `extraData` | Campo utilizado para armazenar informações adicionais do bloco gênesis, incluindo a lista inicial de validadores em redes QBFT/IBFT. |
+
+## Exemplo Simplificado
+
+```json
+{
+  "config": {
+    "chainId": 10001,
+    "contractSizeLimit": 2147483647,
+    "qbft": {
+      "epochLength": 30000,
+      "blockPeriodSeconds": 4,
+      "requestTimeoutSeconds": 8
+    }
+  },
+  "gasLimit": "0x1fffffffffffff",
+  "alloc": {
+    "0x1234...": {
+      "balance": "1000000000000000000000"
+    }
+  },
+  "extraData": "0xf87aa0..."
+}
+```
+
 ```bash
 nano $CONFIGDIR/besu/genesis.json
 ```
